@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll</title>
+    <style>
+    .container{
+        width: 70%;
+        margin: auto;
+        text-align: center;
+    }
+    .dice {
+        text-align: center;
+        display: inline-block;
+        margin: 10px;
+    }
+    body {
+        background-color: #042f4b;
+        margin: 0;
+    }
+    h1 {
+        margin: 10px 30px 0px 30px ;
+        font-family: "Lobster", cursive;
+        text-shadow: 5px 0 #232931;
+        font-size: 4.5rem;
+        color: #4ecca3;
+        text-align: center;
+    }
+    p {
+        font-size: 2rem;
+        color: #43cca3;
+    }
+    img {
+        width: 100%;
+    }
+    .middle {
+    padding-top: 30px;
+    }
+    .butn {
+        background: #4ecca3;
+        font-family: "Indie Flower", cursive;
+        border-radius: 7px;
+        color: #ffff;
+        font-size: 30px;
+        padding: 16px 25px 16px 25px;
+        text-decoration: none;
+    }
+    .butn:hover {
+        background: #232931;
+        text-decoration: none;
+    }
+    .bottom {
+        width: 70%;
+        margin: auto;
+        text-align: center;
+    }
+    output {
+        margin: 30px;
+        font-family: "Lobster", cursive;
+        text-shadow: 5px 0 #232931;
+        font-size: 4.5rem;
+        color: #4ecca3;
+        text-align: center;
+    }
+    .tscore {
+        display: inline-block;
+        margin: 10px;
+        text-align: center;
+    }
+    .reSet{
+        width: 70%;
+        margin: auto;
+        text-align: center;
+    }
+    .rst {
+        background: #4ecca3;
+        font-family: "Indie Flower", cursive;
+        border-radius: 7px;
+        color: #ffff;
+        font-size: 30px;
+        padding: 16px 25px 16px 25px;
+        text-decoration: none;
+    }
+    .rst:hover {
+        background: #232931;
+        text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+        <div class="container">
+                <h1>Lets Play!!</h1>
+                <div class="dice">
+                    <p class="Player1">Player 1</p>
+                    <img src="/DiceRoll/dice6.png" alt="" class="img1">
+                </div>
+                <div class="dice">
+                    <p class="Player2">Player 2</p>
+                    <img src="/DiceRoll/dice6.png" alt="" class="img2">
+                </div>
+        </div>    
+            <div class="container middle">
+                <button type="button" class="butn" onclick="rollTheDice()">
+                Roll the Dice</button>
+            </div>
+            <div class="container middle">
+                <button type="button" class="butn" 
+                    onClick="editNames()">
+                    Edit Names
+                </button>
+            </div>
+        <div class="container bottom">
+            <div class="tscore">
+                <p class="tscore1">Total Score Player 1</p>
+                <output id="out1"></output>
+            </div>
+            <div class="tscore">
+                <p class="tscore2">Total Score Player 2</p>
+                <output id="out2"></output>
+            </div>
+        </div>    
+        <div class="reSet">
+            <button class="rst" onclick="scoreReset()">Reset</button>
+        </div>
+    <script>
+        // Player name
+        var player1 = "Player 1";
+        var player2 = "Player 2";
+        // Function to change the player name
+        function editNames() {
+            player1 = prompt("Change Player1 name");
+            player2 = prompt("Change player2 name");
+            document.querySelector("p.Player1")
+                            .innerHTML = player1;
+
+            document.querySelector("p.Player2")
+                            .innerHTML = player2;
+            document.querySelector("p.tscore1")
+                            .innerHTML = "Totalscore "+player1;
+            document.querySelector("p.tscore2")
+                            .innerHTML = "Totalscore "+player2;
+        }
+        //initializing scores
+        var score1 = 0;
+        var score2 = 0;
+        // creating what happens when roll the dice is pressed
+        //function to roll the dice
+        function rollTheDice(){
+        
+            if(score1<50 && score2<50){
+                var random1 = Math.floor((Math.random()*6)+1);
+                var random2 = Math.floor((Math.random()*6)+1);
+                
+                document.querySelector(".img1").setAttribute("src","dice"+random1+".png");
+                document.querySelector(".img2").setAttribute("src","dice"+random1+".png");
+                score1 +=random1;
+                score2 +=random2;
+                document.getElementById("out1").innerHTML=score1;
+                document.getElementById("out2").innerHTML=score2; 
+                
+                
+            }
+            else{
+                if(score1>=50 && score2<50 && score1>score2){
+                    document.querySelector("h1").innerHTML= player1+" WINS!!";
+                }
+                else if(score2>=50 && score1<50 && score1<score2){
+                    document.querySelector("h1").innerHTML=player2+" WINS!!";
+                }
+                else if(score1==score2){
+                    document.querySelector("h1").innerHTML="DRAW!!";
+                }
+            }
+        }    
+        //function to reset the page
+        function scoreReset(){
+            location.reload();
+        }
+    </script>
+</body>
+</html>
